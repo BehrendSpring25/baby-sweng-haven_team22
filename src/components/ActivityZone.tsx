@@ -36,7 +36,7 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
   const [wasInside, setWasInside] = React.useState(false);
   
   const getZoneImage = () => {
-    if (isActive) {
+    if (isInsideZone(cPos.x, cPos.y)) {
       // Change the image when the character is active in the zone
       switch (type) {
         case 'sleep':
@@ -63,15 +63,26 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
   };
 
   const isInsideZone = (charX: number, charY: number) => {
+    const container = document.querySelector('.game-container')?.getBoundingClientRect();
+    if (!container) return false;
+
+    const containerBoost = 50;
+
+    // Convert character's percentage position to absolute pixels
+    const charXInPixels = (charX / 100) * container.width;
+    const charYInPixels = (charY / 100) * container.height;
+
     const zoneLeft = x;
     const zoneRight = x + width;
     const zoneTop = y;
     const zoneBottom = y + height;
+    console.log(`Character Position: (${charXInPixels}, ${charYInPixels})`);
+    console.log(`Zone Bounds: (${zoneLeft}, ${zoneTop}) to (${zoneRight}, ${zoneBottom})`);
     return (
-      charX >= zoneLeft &&
-      charX <= zoneRight &&
-      charY >= zoneTop &&
-      charY <= zoneBottom
+      charXInPixels >= zoneLeft &&
+      charXInPixels <= zoneRight &&
+      charYInPixels >= zoneTop &&
+      charYInPixels <= zoneBottom
     );
   };
 
@@ -80,23 +91,23 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
     if (e.dataTransfer.getData('type') !== 'character') return;
 
     setIsHovering(false);
-    onDrop(); // Trigger the parent-provided onDrop handler
+    if (isInsideZone(cPos.x, cPos.y)) {
+      onDrop(); // Trigger the parent-provided onDrop handler
+    }
+    
   };
 
   React.useEffect(() => {
-    
     const inside = isInsideZone(cPos.x, cPos.y);
+  
     if (inside && !wasInside) {
-      console.log(`Character entered ${type} zone`);
-      onCharacterEnter(type);
+      onCharacterEnter(type); // Notify parent that character entered the zone
       setWasInside(true);
     } else if (!inside && wasInside) {
+      onCharacterLeave(); // Notify parent that character left the zone
       setWasInside(false);
-      console.log(`Character left ${type} zone`);
-      onCharacterLeave();
-
     }
-  }, [cPos.x, cPos.y, width, height, onCharacterEnter, type]);
+  }, [cPos.x, cPos.y, width, height, onCharacterEnter, onCharacterLeave, type, isActive]); // Add `isActive` to dependencies
   
   return (
     <div 

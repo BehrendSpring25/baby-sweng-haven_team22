@@ -9,15 +9,20 @@ interface CharacterProps {
   className?: string;
   draggable?: boolean;
   onDragStart?: (e: React.DragEvent<HTMLDivElement>) => void;
+  width?: number; // New prop for character width
+  height?: number; // New prop for character height
 }
 
 const Character: React.FC<CharacterProps> = ({
   activity,
   position,
   onPositionChange,
-  className
+  className,
+  width = 50, // Default width
+  height = 50, // Default height
 }) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 }); // Track drag offset
   const characterRef = useRef<HTMLDivElement>(null);
   
   // Get character animation based on activity
@@ -36,21 +41,32 @@ const Character: React.FC<CharacterProps> = ({
   
   // Get character emoji based on activity
   const getCharacterEmoji = () => {
-    switch (activity) {
-      case 'sleep':
-        return "😴";
-      case 'gaming':
-        return "🎮";
-      case 'work':
-        return "👨‍💻";
-      default:
-        return "🧑‍💻";
+    if (activity === 'idle') {
+      return (
+        <img
+          src="/assets/images/Char_Normal.png" // Path to the custom idle PNG
+          alt="Idle Character"
+          className="w-full h-full object-contain"
+        />
+      );
+    } else{
+      return "e";
     }
   };
   
   // Handle drag events
   const handleDragStart = (e: React.DragEvent) => {
     setIsDragging(true);
+
+    // Calculate the offset between the mouse pointer and the character's position
+    const rect = characterRef.current?.getBoundingClientRect();
+    if (rect) {
+      setDragOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    }
+
     // Required for Firefox
     if (e.dataTransfer) {
       e.dataTransfer.setData('text/plain', 'character');
@@ -62,9 +78,9 @@ const Character: React.FC<CharacterProps> = ({
     
     // Only update position if we're not in a drop zone
     const containerRect = e.currentTarget.closest('.game-container')?.getBoundingClientRect();
-    if (containerRect) {
-      const newX = ((e.clientX - containerRect.left) / containerRect.width) * 100;
-      const newY = ((e.clientY - containerRect.top) / containerRect.height) * 100;
+   // if (containerRect) {
+      const newX = ((e.clientX - containerRect.left - dragOffset.x) / containerRect.width) * 100;
+      const newY = ((e.clientY - containerRect.top - dragOffset.y) / containerRect.height) * 100;
       
       // Keep character within bounds
       const boundedX = Math.max(5, Math.min(95, newX));
@@ -72,7 +88,7 @@ const Character: React.FC<CharacterProps> = ({
       
       onPositionChange({ x: boundedX, y: boundedY });
     }
-  };
+  //};
   
   // Handle touch events for mobile
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -112,7 +128,9 @@ const Character: React.FC<CharacterProps> = ({
       style={{
         left: `${position.x}%`,
         top: `${position.y}%`,
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        width: `${width}px`, // Apply width
+        height: `${height}px`, // Apply height
       }}
       draggable="true"
       onDragStart={(e) => {

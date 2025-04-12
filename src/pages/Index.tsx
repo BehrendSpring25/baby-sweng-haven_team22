@@ -52,7 +52,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-[#F1F0FB] p-4">
-      <div className="container mx-auto max-w-4xl">
+      <div className="container mx-auto max-w-8xl">
         <h1 className="text-3xl font-bold text-center mb-2">BabySweng</h1>
         <div className="flex items-center justify-center gap-2 mb-4">
           <div className="px-3 py-1 bg-white rounded-full text-sm flex items-center shadow-sm">
@@ -139,10 +139,10 @@ const Index = () => {
             type="sleep"
             icon="💤"
             label="Sleep"
-            isActive={isInZone('sleep')}
+            isActive={characterActivity === 'sleep'} // Update based on character activity
             onDrop={() => handleZoneDrop('sleep')}
-            x={100}
-            y={370}
+            x={50}
+            y={350}
             width={300}
             height={150}
             cPos={characterPosition}
@@ -153,10 +153,10 @@ const Index = () => {
             type="gaming"
             icon="🎮"
             label="Gaming"
-            isActive={isInZone('gaming')}
+            isActive={characterActivity === 'gaming'} // Update based on character activity
             onDrop={() => handleZoneDrop('gaming')}
-            x={120}
-            y={180}
+            x={250}
+            y={150}
             width={200}
             height={200}
             cPos={characterPosition}
@@ -167,10 +167,10 @@ const Index = () => {
             type="work"
             icon="👨‍💻"
             label="Work"
-            isActive={isInZone('work')}
+            isActive={characterActivity === 'work'} // Update based on character activity
             onDrop={() => handleZoneDrop('work')}
-            x={500}
-            y={200}
+            x={800}
+            y={260}
             width={200}
             height={200}
             cPos={characterPosition}
@@ -185,6 +185,8 @@ const Index = () => {
             onPositionChange={setPosition}
             draggable
             onDragStart={(e) => e.dataTransfer.setData('type', 'character')}
+            width={200} // Set custom width
+            height={200} // Set custom height
           />
         </div>
 
