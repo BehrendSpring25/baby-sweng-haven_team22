@@ -32,8 +32,8 @@ const Shop: React.FC<ShopProps> = ({ money, purchasedItems, onBuyItem }) => {
   };
   
   return (
-    <div className="fixed bottom-4 right-4 z-40">
-      <div className="flex flex-col items-end gap-3">
+    <div className="fixed top-4 left-4 z-40"> {/* Changed from bottom-right to top-left */}
+      <div className="flex flex-col items-start gap-3"> {/* Adjusted alignment */}
         {isOpen && (
           <div className="bg-white rounded-lg shadow-lg p-4 max-w-md w-full mb-2 border animate-fade-in">
             <div className="flex justify-between items-center mb-4">
