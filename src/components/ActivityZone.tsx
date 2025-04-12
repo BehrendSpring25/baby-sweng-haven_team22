@@ -16,6 +16,7 @@ interface ActivityZoneProps {
   height: number; // height of the zone
   cPos: CharacterPosition; // character position
   onCharacterEnter: (type: ActivityType) => void;
+  onCharacterLeave: () => void;
 }
 
 const ActivityZone: React.FC<ActivityZoneProps> = ({
@@ -30,8 +31,10 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
   height,
   cPos,
   onCharacterEnter,
+  onCharacterLeave,
 }) => {
   const [isHovering, setIsHovering] = React.useState(false);
+  const [wasInside, setWasInside] = React.useState(false);
   
   // Get zone-specific styling
   const getZoneColor = () => {
@@ -48,20 +51,30 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
   };
 
   const isInsideZone = (charX: number, charY: number) => {
+    const zoneLeft = x;
+    const zoneRight = x + width;
+    const zoneTop = y;
+    const zoneBottom = y + height;
     return (
-      charX >= x &&
-      charX <= x + width &&
-      charY >= y &&
-      charY <= y + height
+      charX >= zoneLeft &&
+      charX <= zoneRight &&
+      charY >= zoneTop &&
+      charY <= zoneBottom
     );
   };
 
   React.useEffect(() => {
-    const characterPosition = { x: cPos.x, y: cPos.y };
-    if (isInsideZone(cPos.x, cPos.y)) {
+    const inside = isInsideZone(cPos.x, cPos.y);
+    if (inside && !wasInside) {
+      console.log(`Character entered ${type} zone`);
       onCharacterEnter(type);
+      setWasInside(true);
+    } else if (!inside && wasInside) {
+      console.log(`Character left ${type} zone`);
+      onCharacterLeave();
+      setWasInside(false);
     }
-  }, [x, y, width, height, onCharacterEnter, type]);
+  }, [cPos.x, cPos.y, width, height, onCharacterEnter, type]);
   
   return (
     <div 

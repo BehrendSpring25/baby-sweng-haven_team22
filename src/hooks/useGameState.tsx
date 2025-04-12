@@ -64,7 +64,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       // If game is over, don't update stats
       if (state.isGameOver) return state;
 
-      const effects = ACTIVITY_EFFECTS[state.characterActivity];
+      const effects = ACTIVITY_EFFECTS[state.characterActivity] || {};
       const newStats = { ...state.stats };
       
       // Apply activity effects to stats
