@@ -117,7 +117,7 @@ const Index = () => {
             height={20}
             cPos={characterPosition}
             onCharacterEnter={(type) => setActivity(type)}
-            onCharacterLeave={() => setActivity('idle')}
+            onCharacterLeave={() => setActivity("idle")}
             />
             <ActivityZone
             type="gaming"
@@ -125,13 +125,13 @@ const Index = () => {
             label="Gaming"
             isActive={isInZone('gaming')}
             onDrop={() => handleZoneDrop('gaming')}
-            x={100}
-            y={100}
+            x={500}
+            y={150}
             width={20}
             height={20}
             cPos={characterPosition}
             onCharacterEnter={(type) => setActivity(type)}
-            onCharacterLeave={() => setActivity('idle')}
+            onCharacterLeave={() => setActivity("idle")}
           />
           <ActivityZone
             type="work"
@@ -139,13 +139,13 @@ const Index = () => {
             label="Work"
             isActive={isInZone('work')}
             onDrop={() => handleZoneDrop('work')}
-            x={70}
-            y={50}
+            x={700}
+            y={250}
             width={20}
             height={20}
             cPos={characterPosition}
             onCharacterEnter={(type) => setActivity(type)}
-            onCharacterLeave={() => setActivity('idle')}
+            onCharacterLeave={() => setActivity("idle")}
 
           />
 

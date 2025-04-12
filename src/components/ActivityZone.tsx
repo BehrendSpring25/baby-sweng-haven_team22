@@ -64,15 +64,17 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
   };
 
   React.useEffect(() => {
+    
     const inside = isInsideZone(cPos.x, cPos.y);
     if (inside && !wasInside) {
       console.log(`Character entered ${type} zone`);
       onCharacterEnter(type);
       setWasInside(true);
     } else if (!inside && wasInside) {
+      setWasInside(false);
       console.log(`Character left ${type} zone`);
       onCharacterLeave();
-      setWasInside(false);
+
     }
   }, [cPos.x, cPos.y, width, height, onCharacterEnter, type]);
   
