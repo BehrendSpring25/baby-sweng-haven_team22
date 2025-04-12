@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				game: {
+					sleep: '#9b87f5',
+					gaming: '#FEC6A1',
+					work: '#F2FCE2',
+					sleepiness: '#9b87f5',
+					stress: '#FEC6A1',
+					experience: '#F2FCE2',
+					sanity: '#D3E4FD',
+					money: '#FFDEE2'
 				}
 			},
 			borderRadius: {
@@ -69,26 +80,44 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
-				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+				"accordion-down": {
+					from: { height: "0" },
+					to: { height: "var(--radix-accordion-content-height)" },
 				},
-				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+				"accordion-up": {
+					from: { height: "var(--radix-accordion-content-height)" },
+					to: { height: "0" },
+				},
+				"pulse-gentle": {
+					"0%, 100%": { transform: "scale(1)" },
+					"50%": { transform: "scale(1.05)" },
+				},
+				"float": {
+					"0%, 100%": { transform: "translateY(0)" },
+					"50%": { transform: "translateY(-10px)" },
+				},
+				"walk": {
+					"0%, 100%": { transform: "rotate(-5deg)" },
+					"50%": { transform: "rotate(5deg)" },
+				},
+				"sleep": {
+					"0%, 100%": { transform: "scale(1)" },
+					"50%": { transform: "scale(1.02)" },
+				},
+				"work": {
+					"0%, 100%": { transform: "translateX(0)" },
+					"25%": { transform: "translateX(-2px)" },
+					"75%": { transform: "translateX(2px)" },
 				}
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
+				"pulse-gentle": "pulse-gentle 2s infinite",
+				"float": "float 3s ease-in-out infinite",
+				"walk": "walk 0.5s ease-in-out infinite",
+				"sleep": "sleep 4s ease-in-out infinite",
+				"work": "work 0.3s ease-in-out infinite",
 			}
 		}
 	},
