@@ -40,7 +40,8 @@ const initialState: GameState = {
     experience: 0,
     sanity: 80,
     money: 10,
-    level: 1
+    level: 1,
+    xpPerLevel: XP_PER_LEVEL,
   },
   characterActivity: 'idle',
   characterPosition: { x: 50, y: 50 }, // Center of the screen
@@ -65,18 +66,31 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       if (state.isGameOver) return state;
 
       const effects = ACTIVITY_EFFECTS[state.characterActivity] || {};
+
+      if (state.characterActivity === 'work' && effects.money) {
+        effects.money += 2 * (state.stats.level - 1);
+      }
       const newStats = { ...state.stats };
+
+      const multipliers = state.purchasedItems.reduce((acc, item) => {
+        for (const [stat, multiplier] of Object.entries(item.effects || {})) {
+          acc[stat] = (acc[stat] || 1) * multiplier;
+        }
+        return acc; // Ensure the accumulator is returned
+      }, {} as Record<keyof CharacterStats, number>);
       
       // Apply activity effects to stats
-      for (const [stat, value] of Object.entries(effects)) {
+      for (const [stat, baseValue] of Object.entries(effects)) {
         if (stat in newStats) {
+          const multiplier = multipliers[stat as keyof CharacterStats] || 1;
+          const finalValue = (baseValue as number) * multiplier;
           newStats[stat as keyof CharacterStats] = Math.max(
             STAT_MIN,
             Math.min(
               STAT_MAX,
-              newStats[stat as keyof CharacterStats] + (value as number)
+              newStats[stat as keyof CharacterStats] + finalValue)
             )
-          );
+          ;
         }
       }
 
@@ -84,6 +98,8 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       if (newStats.experience >= XP_PER_LEVEL) {
         newStats.level += 1;
         newStats.experience = 0;
+        newStats.xpPerLevel = Math.floor(newStats.xpPerLevel * 1.25);
+        
       }
 
       // Check game over condition

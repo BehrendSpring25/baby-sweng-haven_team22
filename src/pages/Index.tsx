@@ -183,8 +183,8 @@ const Index = () => {
             activity={characterActivity}
             position={characterPosition}
             onPositionChange={setPosition}
-            draggable
-            onDragStart={(e) => e.dataTransfer.setData('type', 'character')}
+            //draggable
+           // onDragStart={(e) => e.dataTransfer.setData('type', 'character')}
           />
         </div>
 

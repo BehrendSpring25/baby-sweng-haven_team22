@@ -4,6 +4,7 @@ import { ShopItem } from '@/types';
 import { Button } from '@/components/ui/button';
 import { shopItems } from '@/data/shopItems';
 import { cn } from '@/lib/utils';
+import { toast } from '@/hooks/use-toast';
 
 interface ShopProps {
   money: number;
@@ -17,6 +18,13 @@ const Shop: React.FC<ShopProps> = ({ money, purchasedItems, onBuyItem }) => {
   const toggleShop = () => setIsOpen(prev => !prev);
   
   const handleBuyItem = (item: ShopItem) => {
+    if (!item.isRepeatable && purchasedItems.some((p) => p.id === item.id)) {
+      toast({
+        title: "Already Purchased",
+        description: `You already bought the ${item.name}.`,
+      });
+      return;
+    }
     onBuyItem(item);
   };
   

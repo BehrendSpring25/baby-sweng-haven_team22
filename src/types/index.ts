@@ -8,6 +8,7 @@ export interface CharacterStats {
   sanity: number;
   money: number;
   level: number;
+  xpPerLevel: number;
 }
 
 export interface ShopItem {
@@ -20,6 +21,8 @@ export interface ShopItem {
     x: number;
     y: number;
   };
+  isRepeatable?: boolean;
+  effects: Partial<CharacterStats>; // Effects on character stats
 }
 
 export interface CharacterPosition {
