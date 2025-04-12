@@ -6,10 +6,10 @@ export const shopItems: ShopItem[] = [
     name: 'Desk Plant',
     price: 50,
     description: 'A small plant to brighten up your workspace',
-    image: '/assets/images/desk_plant.png',
+    image: '/assets/images/plant.png',
     loadedImage: (() => {
       const img = new Image();
-      img.src = '/assets/images/desk_plant.png';
+      img.src = '/assets/images/plant.png';
       return img;
     })(),
     position: { x: 75, y: 70 },
@@ -51,10 +51,10 @@ export const shopItems: ShopItem[] = [
     name: 'Desk Lamp',
     price: 40,
     description: 'A stylish lamp for your desk',
-    image: '/assets/images/desk_lamp.png',
+    image: '/assets/images/Lamp.png',
     loadedImage: (() => {
       const img = new Image();
-      img.src = '/assets/images/desk_lamp.png';
+      img.src = '/assets/images/Lamp.png';
       return img;
     })(),
     position: { x: 15, y: 30 },
@@ -66,10 +66,10 @@ export const shopItems: ShopItem[] = [
     name: 'Bookshelf',
     price: 120,
     description: 'Store your coding books',
-    image: '/assets/images/bookshelf.png',
+    image: '/assets/images/shelf.png',
     loadedImage: (() => {
       const img = new Image();
-      img.src = '/assets/images/bookshelf.png';
+      img.src = '/assets/images/shelf.png';
       return img;
     })(),
     position: { x: 40, y: 20 },
@@ -81,10 +81,10 @@ export const shopItems: ShopItem[] = [
     name: 'Bean Bag',
     price: 80,
     description: 'Comfy seat for gaming breaks',
-    image: '/assets/images/bean_bag.png',
+    image: '/assets/images/bag.png',
     loadedImage: (() => {
       const img = new Image();
-      img.src = '/assets/images/bean_bag.png';
+      img.src = '/assets/images/bag.png';
       return img;
     })(),
     position: { x: 65, y: 80 },
