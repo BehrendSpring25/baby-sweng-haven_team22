@@ -1,4 +1,3 @@
-
 import { useEffect, useReducer } from 'react';
 import { ActivityType, CharacterPosition, CharacterStats, GameState, ShopItem } from '../types';
 
@@ -45,6 +44,7 @@ const initialState: GameState = {
   },
   characterActivity: 'idle',
   characterPosition: { x: 50, y: 50 }, // Center of the screen
+  canvasBackground: '/assets/images/Game_Room.png', // Add custom background
   purchasedItems: [],
   isGameOver: false
 };
@@ -192,6 +192,7 @@ export const useGameState = () => {
     setActivity,
     setPosition,
     buyItem,
-    restartGame
+    restartGame,
+    canvasBackground: state.canvasBackground, // Expose canvas background
   };
 };

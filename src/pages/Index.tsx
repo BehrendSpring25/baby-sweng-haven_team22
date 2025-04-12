@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useGameState } from '@/hooks/useGameState';
 import StatBar from '@/components/StatBar';
@@ -88,7 +87,14 @@ const Index = () => {
         {/* Game area */}
         <div className="relative bg-white rounded-xl shadow-md h-[400px] md:h-[500px] mb-4 game-container overflow-hidden">
           {/* Room background with a subtle grid */}
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2VhZWFlYSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')]"></div>
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "url('/assets/images/Game_Room.png')", // Replace with your custom image
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          ></div>
 
           {/* Purchased items */}
           {purchasedItems.map((item) => (
@@ -111,10 +117,10 @@ const Index = () => {
             label="Sleep"
             isActive={isInZone('sleep')}
             onDrop={() => handleZoneDrop('sleep')}
-            x={10}
-            y={20}
-            width={20}
-            height={20}
+            x={100}
+            y={350}
+            width={200}
+            height={200}
             cPos={characterPosition}
             onCharacterEnter={(type) => setActivity(type)}
             onCharacterLeave={() => setActivity('idle')}
@@ -125,10 +131,10 @@ const Index = () => {
             label="Gaming"
             isActive={isInZone('gaming')}
             onDrop={() => handleZoneDrop('gaming')}
-            x={100}
-            y={100}
-            width={20}
-            height={20}
+            x={120}
+            y={180}
+            width={200}
+            height={200}
             cPos={characterPosition}
             onCharacterEnter={(type) => setActivity(type)}
             onCharacterLeave={() => setActivity('idle')}
@@ -139,10 +145,10 @@ const Index = () => {
             label="Work"
             isActive={isInZone('work')}
             onDrop={() => handleZoneDrop('work')}
-            x={70}
-            y={50}
-            width={20}
-            height={20}
+            x={500}
+            y={200}
+            width={200}
+            height={200}
             cPos={characterPosition}
             onCharacterEnter={(type) => setActivity(type)}
             onCharacterLeave={() => setActivity('idle')}

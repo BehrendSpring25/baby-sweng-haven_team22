@@ -33,4 +33,5 @@ export interface GameState {
   characterPosition: CharacterPosition;
   purchasedItems: ShopItem[];
   isGameOver: boolean;
+  canvasBackground: string; // URL to the background image
 }
