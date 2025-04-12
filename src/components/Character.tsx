@@ -39,7 +39,7 @@ const Character: React.FC<CharacterProps> = ({
   const getCharacterEmoji = () => {
     if (activity === 'idle') {
       const { sleepiness, stress, sanity } = stats;
-      if (sanity === 100 && sleepiness == 0 && stress === 0) {
+      if (sanity > 90 && sleepiness < 10 && stress < 10) {
         return (
           <img
             src="/assets/images/Char_Happy.png" // Insane character image
