@@ -6,12 +6,16 @@ interface CharacterProps {
   activity: ActivityType;
   position: CharacterPosition;
   onPositionChange: (position: CharacterPosition) => void;
+  className?: string;
+  draggable?: boolean;
+  onDragStart?: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
 const Character: React.FC<CharacterProps> = ({
   activity,
   position,
-  onPositionChange
+  onPositionChange,
+  className
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const characterRef = useRef<HTMLDivElement>(null);
@@ -111,7 +115,10 @@ const Character: React.FC<CharacterProps> = ({
         transform: 'translate(-50%, -50%)'
       }}
       draggable="true"
-      onDragStart={handleDragStart}
+      onDragStart={(e) => {
+        e.dataTransfer.setData('type', 'character'); // Mark as character
+        handleDragStart(e);
+      }}
       onDragEnd={handleDragEnd}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}

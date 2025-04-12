@@ -41,6 +41,15 @@ const Index = () => {
     });
   };
 
+  // Handle moving purchased items
+  const handleItemPositionChange = (id: string, newPosition: { x: number; y: number }) => {
+    const updatedItems = purchasedItems.map((item) =>
+      item.id === id ? { ...item, position: newPosition } : item
+    );
+    // Update the state with the new positions
+    state.purchasedItems = updatedItems;
+  };
+
   return (
     <div className="min-h-screen bg-[#F1F0FB] p-4">
       <div className="container mx-auto max-w-4xl">
@@ -85,14 +94,19 @@ const Index = () => {
         </div>
 
         {/* Game area */}
-        <div className="relative bg-white rounded-xl shadow-md h-[400px] md:h-[500px] mb-4 game-container overflow-hidden">
-          {/* Room background with a subtle grid */}
+        <div
+          className="relative mx-auto mb-4 game-container overflow-hidden flex items-center justify-center"
+          style={{ width: '1080px', height: '479px' }}
+        >
+          {/* Room background */}
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: "url('/assets/images/Game_Room.png')", // Replace with your custom image
+              backgroundImage: "url('/assets/images/Game_RoomL.jpg')", // Replace with your custom image
               backgroundSize: 'cover',
               backgroundPosition: 'center',
+              width: '100%',
+              height: '100%',
             }}
           ></div>
 
@@ -100,7 +114,17 @@ const Index = () => {
           {purchasedItems.map((item) => (
             <div
               key={item.id}
-              className="absolute text-4xl md:text-5xl z-10"
+              className="absolute text-4xl md:text-5xl z-10 cursor-move"
+              draggable
+              onDragStart={(e) => e.dataTransfer.setData('type', 'decoration')} // Mark as decoration
+              onDragEnd={(e) => {
+                const rect = e.currentTarget.parentElement?.getBoundingClientRect();
+                if (rect) {
+                  const newX = ((e.clientX - rect.left) / rect.width) * 100;
+                  const newY = ((e.clientY - rect.top) / rect.height) * 100;
+                  handleItemPositionChange(item.id, { x: newX, y: newY });
+                }
+              }}
               style={{
                 left: `${item.position.x}%`,
                 top: `${item.position.y}%`,
@@ -159,6 +183,8 @@ const Index = () => {
             activity={characterActivity}
             position={characterPosition}
             onPositionChange={setPosition}
+            draggable
+            onDragStart={(e) => e.dataTransfer.setData('type', 'character')}
           />
         </div>
 

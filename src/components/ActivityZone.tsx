@@ -75,7 +75,10 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
     );
   };
 
-  const handleDrop = () => {
+  const handleDrop = (e: React.DragEvent) => {
+    // Prevent decorations from triggering activity zone interactions
+    if (e.dataTransfer.getData('type') !== 'character') return;
+
     setIsHovering(false);
     onDrop(); // Trigger the parent-provided onDrop handler
   };
@@ -117,10 +120,7 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
         setIsHovering(true);
       }}
       onDragLeaveCapture={() => setIsHovering(false)}
-      onDropCapture={(e) => {
-        e.preventDefault();
-        handleDrop();
-      }}
+      onDropCapture={handleDrop}
     >
     </div>
   );
