@@ -104,6 +104,47 @@ const Index = () => {
             </div>
           ))}
 
+          {/* Activity zones */}
+          <ActivityZone
+            type="sleep"
+            icon="💤"
+            label="Sleep"
+            isActive={isInZone('sleep')}
+            onDrop={() => handleZoneDrop('sleep')}
+            x={10}
+            y={20}
+            width={20}
+            height={20}
+            cPos={characterPosition}
+            onCharacterEnter={(type) => setActivity(type)}
+            />
+            <ActivityZone
+            type="gaming"
+            icon="🎮"
+            label="Gaming"
+            isActive={isInZone('gaming')}
+            onDrop={() => handleZoneDrop('gaming')}
+            x={40}
+            y={30}
+            width={20}
+            height={20}
+            cPos={characterPosition}
+            onCharacterEnter={(type) => setActivity(type)}
+          />
+          <ActivityZone
+            type="work"
+            icon="👨‍💻"
+            label="Work"
+            isActive={isInZone('work')}
+            onDrop={() => handleZoneDrop('work')}
+            x={70}
+            y={50}
+            width={20}
+            height={20}
+            cPos={characterPosition}
+            onCharacterEnter={(type) => setActivity(type)}
+          />
+
           {/* Character */}
           <Character
             activity={characterActivity}
@@ -112,30 +153,8 @@ const Index = () => {
           />
         </div>
 
-        {/* Activity zones */}
-        <div className="grid grid-cols-3 gap-4">
-          <ActivityZone
-            type="sleep"
-            icon="💤"
-            label="Sleep"
-            isActive={isInZone('sleep')}
-            onDrop={() => handleZoneDrop('sleep')}
-          />
-          <ActivityZone
-            type="gaming"
-            icon="🎮"
-            label="Gaming"
-            isActive={isInZone('gaming')}
-            onDrop={() => handleZoneDrop('gaming')}
-          />
-          <ActivityZone
-            type="work"
-            icon="👨‍💻"
-            label="Work"
-            isActive={isInZone('work')}
-            onDrop={() => handleZoneDrop('work')}
-          />
-        </div>
+        
+
 
         {/* Shop */}
         <Shop

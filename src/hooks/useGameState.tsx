@@ -17,7 +17,6 @@ const ACTIVITY_EFFECTS: Record<ActivityType, Partial<CharacterStats>> = {
   },
   sleep: {
     sleepiness: -1,
-    stress: -0.3,
     sanity: 0.2
   },
   gaming: {
