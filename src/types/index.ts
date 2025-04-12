@@ -29,6 +29,8 @@ export interface ShopItem {
 export interface CharacterPosition {
   x: number;
   y: number;
+  width?: number; // Optional width for character
+  height?: number; // Optional height for character
 }
 
 export interface GameState {

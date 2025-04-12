@@ -74,9 +74,9 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         for (const [stat, multiplier] of Object.entries(item.effects || {})) {
           acc[stat] = (acc[stat] || 1) * multiplier;
         }
-        return acc; // Ensure the accumulator is returned
+        return acc;
       }, {} as Record<keyof CharacterStats, number>);
-      
+
       // Apply activity effects to stats
       for (const [stat, baseValue] of Object.entries(effects)) {
         if (stat in newStats) {
@@ -102,12 +102,16 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         }
       }
 
+      // Rapid sanity drain if sleepiness or stress reaches 100
+      if (newStats.sleepiness >= 100 || newStats.stress >= 100) {
+        newStats.sanity = Math.max(STAT_MIN, newStats.sanity - 5); // Drain sanity rapidly
+      }
+
       // Check if experience is enough to level up
       if (newStats.experience >= XP_PER_LEVEL) {
         newStats.level += 1;
         newStats.experience = 0;
         newStats.xpPerLevel = Math.floor(newStats.xpPerLevel * 1.25);
-        
       }
 
       // Check game over condition
