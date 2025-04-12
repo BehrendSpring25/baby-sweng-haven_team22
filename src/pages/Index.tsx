@@ -29,6 +29,7 @@ const Index = () => {
     toast({
       title: zoneType.charAt(0).toUpperCase() + zoneType.slice(1),
       description: messages[zoneType as keyof typeof messages],
+      // Removed invalid 'position' property
     });
   };
 
@@ -139,42 +140,42 @@ const Index = () => {
             type="sleep"
             icon="💤"
             label="Sleep"
-            isActive={characterActivity === 'sleep'} // Update based on character activity
+            isActive={characterActivity === 'sleep'}
             onDrop={() => handleZoneDrop('sleep')}
             x={50}
             y={350}
             width={300}
             height={150}
-            cPos={characterPosition}
-            onCharacterEnter={(type) => setActivity(type)}
+            cPos={{ ...characterPosition, width: 200, height: 200 }}
+            onCharacterEnter={(type) => setActivity(type)} // Ensure activity is updated
             onCharacterLeave={() => setActivity('idle')}
           />
           <ActivityZone
             type="gaming"
             icon="🎮"
             label="Gaming"
-            isActive={characterActivity === 'gaming'} // Update based on character activity
+            isActive={characterActivity === 'gaming'}
             onDrop={() => handleZoneDrop('gaming')}
-            x={250}
+            x={450}
             y={150}
             width={200}
             height={200}
-            cPos={characterPosition}
-            onCharacterEnter={(type) => setActivity(type)}
-            onCharacterLeave={() => setActivity("idle")}
+            cPos={{ ...characterPosition, width: 200, height: 200 }}
+            onCharacterEnter={(type) => setActivity(type)} // Ensure activity is updated
+            onCharacterLeave={() => setActivity('idle')}
           />
           <ActivityZone
             type="work"
             icon="👨‍💻"
             label="Work"
-            isActive={characterActivity === 'work'} // Update based on character activity
+            isActive={characterActivity === 'work'}
             onDrop={() => handleZoneDrop('work')}
             x={800}
             y={260}
             width={200}
             height={200}
-            cPos={characterPosition}
-            onCharacterEnter={(type) => setActivity(type)}
+            cPos={{ ...characterPosition, width: 200, height: 200 }}
+            onCharacterEnter={(type) => setActivity(type)} // Ensure activity is updated
             onCharacterLeave={() => setActivity('idle')}
           />
 
@@ -187,6 +188,7 @@ const Index = () => {
             onDragStart={(e) => e.dataTransfer.setData('type', 'character')}
             width={200} // Set custom width
             height={200} // Set custom height
+            stats={stats} // Pass stats to determine idle character image
           />
         </div>
 
