@@ -113,11 +113,13 @@ const Index = () => {
 
           {/* Purchased items */}
           {purchasedItems.map((item) => (
-            <div
+            <img
               key={item.id}
-              className="absolute text-4xl md:text-5xl z-10 cursor-move"
+              src={item.image} // Use the image property directly
+              alt={item.name}
+              className="absolute z-10 cursor-move"
               draggable
-              onDragStart={(e) => e.dataTransfer.setData('type', 'decoration')} // Mark as decoration
+              onDragStart={(e) => e.dataTransfer.setData('type', 'decoration')}
               onDragEnd={(e) => {
                 const rect = e.currentTarget.parentElement?.getBoundingClientRect();
                 if (rect) {
@@ -129,10 +131,10 @@ const Index = () => {
               style={{
                 left: `${item.position.x}%`,
                 top: `${item.position.y}%`,
+                width: '50px', // Adjust size as needed
+                height: '50px', // Adjust size as needed
               }}
-            >
-              {item.image}
-            </div>
+            />
           ))}
 
           {/* Activity zones */}
