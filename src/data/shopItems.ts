@@ -8,15 +8,20 @@ export const shopItems: ShopItem[] = [
     price: 50,
     description: 'A small plant to brighten up your workspace',
     image: '🪴',
-    position: { x: 75, y: 70 }
+    position: { x: 75, y: 70 },
+    isRepeatable: false,
+    effects: {sanity: 0.8},
   },
   {
     id: 'coffee',
-    name: 'Coffee Machine',
+    name: 'Coffee',
     price: 100,
     description: 'For those late night coding sessions',
     image: '☕',
-    position: { x: 20, y: 65 }
+    position: { x: 20, y: 65 },
+    isRepeatable: false,
+    effects: {sleepiness: 0.8}
+
   },
   {
     id: 'poster1',
@@ -24,7 +29,9 @@ export const shopItems: ShopItem[] = [
     price: 30,
     description: '"Keep Coding" poster for your wall',
     image: '🖼️',
-    position: { x: 85, y: 30 }
+    position: { x: 85, y: 30 },
+    isRepeatable: false,
+    effects: {experience: 1.5}
   },
   {
     id: 'lamp',
@@ -32,7 +39,9 @@ export const shopItems: ShopItem[] = [
     price: 40,
     description: 'A stylish lamp for your desk',
     image: '💡',
-    position: { x: 15, y: 30 }
+    position: { x: 15, y: 30 },
+    isRepeatable: false,
+    effects: {sanity: 0.9}
   },
   {
     id: 'bookshelf',
@@ -40,7 +49,9 @@ export const shopItems: ShopItem[] = [
     price: 120,
     description: 'Store your coding books',
     image: '📚',
-    position: { x: 40, y: 20 }
+    position: { x: 40, y: 20 },
+    isRepeatable: false,
+    effects: {experience: 1.2}
   },
   {
     id: 'beanbag',
@@ -48,6 +59,8 @@ export const shopItems: ShopItem[] = [
     price: 80,
     description: 'Comfy seat for gaming breaks',
     image: '🧶',
-    position: { x: 65, y: 80 }
+    position: { x: 65, y: 80 },
+    isRepeatable: false,
+    effects: {stress: 0.85}
   },
 ];
