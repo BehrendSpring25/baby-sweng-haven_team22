@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ShopItem } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -59,7 +58,7 @@ const Shop: React.FC<ShopProps> = ({ money, purchasedItems, onBuyItem }) => {
                     )}
                   >
                     <div className="flex justify-between items-center mb-2">
-                      <div className="text-3xl">{item.image}</div>
+                      <img src={item.image} alt={item.name} className="h-12 w-12 object-contain" />
                       <div className="text-sm font-medium">${item.price}</div>
                     </div>
                     <div className="font-medium mb-1">{item.name}</div>

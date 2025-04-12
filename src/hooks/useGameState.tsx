@@ -67,9 +67,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
 
       const effects = ACTIVITY_EFFECTS[state.characterActivity] || {};
 
-      if (state.characterActivity === 'work' && effects.money) {
-        effects.money += 2 * (state.stats.level - 1);
-      }
+      
       const newStats = { ...state.stats };
 
       const multipliers = state.purchasedItems.reduce((acc, item) => {
@@ -83,14 +81,24 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       for (const [stat, baseValue] of Object.entries(effects)) {
         if (stat in newStats) {
           const multiplier = multipliers[stat as keyof CharacterStats] || 1;
-          const finalValue = (baseValue as number) * multiplier;
+
+          let finalValue = baseValue as number;
+          if (stat === 'money' && state.characterActivity === 'work') {
+            finalValue += 2 * (state.stats.level -1);
+          }
+
+          finalValue *= multiplier;
+
+          if (stat === 'money') {
+            newStats[stat as keyof CharacterStats] += finalValue;
+          }else{
           newStats[stat as keyof CharacterStats] = Math.max(
             STAT_MIN,
             Math.min(
               STAT_MAX,
               newStats[stat as keyof CharacterStats] + finalValue)
-            )
-          ;
+            );
+          }
         }
       }
 

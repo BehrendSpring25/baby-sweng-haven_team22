@@ -17,6 +17,7 @@ export interface ShopItem {
   price: number;
   description: string;
   image: string;
+  loadedImage: HTMLImageElement; // Loaded image for the item
   position: {
     x: number;
     y: number;
