@@ -118,14 +118,14 @@ const Index = () => {
             isActive={isInZone('sleep')}
             onDrop={() => handleZoneDrop('sleep')}
             x={100}
-            y={350}
-            width={200}
-            height={200}
+            y={370}
+            width={300}
+            height={150}
             cPos={characterPosition}
             onCharacterEnter={(type) => setActivity(type)}
             onCharacterLeave={() => setActivity('idle')}
-            />
-            <ActivityZone
+          />
+          <ActivityZone
             type="gaming"
             icon="🎮"
             label="Gaming"
@@ -152,7 +152,6 @@ const Index = () => {
             cPos={characterPosition}
             onCharacterEnter={(type) => setActivity(type)}
             onCharacterLeave={() => setActivity('idle')}
-
           />
 
           {/* Character */}
@@ -162,9 +161,6 @@ const Index = () => {
             onPositionChange={setPosition}
           />
         </div>
-
-        
-
 
         {/* Shop */}
         <Shop

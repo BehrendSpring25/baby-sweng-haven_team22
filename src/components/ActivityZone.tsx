@@ -36,6 +36,20 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
   const [wasInside, setWasInside] = React.useState(false);
   
   const getZoneImage = () => {
+    if (isActive) {
+      // Change the image when the character is active in the zone
+      switch (type) {
+        case 'sleep':
+          return '/assets/images/Act_Sleep.png';
+        case 'gaming':
+          return '/assets/images/Act_Game.png';
+        case 'work':
+          return '/assets/images/Act_Work.png';
+        default:
+          return '/assets/images/default-zone-active.png';
+      }
+    }
+    // Default image for the zone
     switch (type) {
       case 'sleep':
         return '/assets/images/Game_Bed.png';
@@ -59,6 +73,11 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
       charY >= zoneTop &&
       charY <= zoneBottom
     );
+  };
+
+  const handleDrop = () => {
+    setIsHovering(false);
+    onDrop(); // Trigger the parent-provided onDrop handler
   };
 
   React.useEffect(() => {
@@ -98,8 +117,7 @@ const ActivityZone: React.FC<ActivityZoneProps> = ({
       onDragLeaveCapture={() => setIsHovering(false)}
       onDropCapture={(e) => {
         e.preventDefault();
-        setIsHovering(false);
-        onDrop();
+        handleDrop();
       }}
     >
     </div>
