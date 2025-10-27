@@ -65,14 +65,7 @@ npm install
 npm run dev
 ```
 
-If you use Bun:
-
-```powershell
-bun install
-bun run dev
-```
-
-Open the app in your browser at the URL printed by the dev server (usually http://localhost:3000 or http://localhost:5173).
+Open the app in your browser at the URL printed by the dev server (http://localhost:8080).
 
 ## Where the game logic lives
 
@@ -93,7 +86,3 @@ Team result: 2nd place in the Penn State 2025 Hackathon — Health & Wellness ca
 ## Contributing
 
 Contributions, bug reports, and improvements are welcome. Open an issue or submit a pull request.
-
-## License
-
-See the `LICENSE` file if present, or add a license of your choice.
